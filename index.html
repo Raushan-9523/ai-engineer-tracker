@@ -1,0 +1,125 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>AI Engineer Study Tracker (34 weeks)</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#fafaf7;--fg:#1d1d1b;--mut:#5f5f5a;--card:#fff;--bd:#d4d4cc;--ac:#2b59c3;--l:42%}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141413;--fg:#ecece6;--mut:#a9a9a0;--card:#1f1f1d;--bd:#3b3b36;--ac:#8ab0ff;--l:62%}}
+:root[data-theme="dark"]{--bg:#141413;--fg:#ecece6;--mut:#a9a9a0;--card:#1f1f1d;--bd:#3b3b36;--ac:#8ab0ff;--l:62%}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:16px}h1{font-size:1.5rem;margin:.2em 0}h2{font-size:1.1rem}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px 14px;margin:12px 0}
+.mut{color:var(--mut);font-size:.9rem}
+.bar{height:12px;background:var(--bd);border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ac);width:0}
+#strip{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.cell{width:34px;height:34px;border:2px solid hsl(var(--h) 60% var(--l));border-radius:6px;background:transparent;color:var(--fg);font:600 .72rem system-ui;cursor:pointer;padding:0}
+details{border:1px solid var(--bd);border-radius:10px;margin:10px 0;background:var(--card)}
+details details{margin:6px 10px;border-radius:8px}
+summary{cursor:pointer;padding:10px 12px;font-weight:600;list-style-position:inside}
+.pb{padding:0 12px 10px}
+.wk ul{list-style:none;margin:0;padding:4px 12px 10px}.wk li{padding:4px 0}
+label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+input[type=checkbox]{width:20px;height:20px;margin-top:2px;flex:none}
+.tag{font-size:.7rem;border:1px solid var(--bd);border-radius:4px;padding:0 5px;margin-left:4px;color:var(--mut)}
+a{color:var(--ac)}button,input[type=date]{font:inherit;padding:6px 10px;border-radius:8px;border:1px solid var(--bd);background:var(--card);color:var(--fg);cursor:pointer}
+:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+.done{color:var(--mut);font-size:.9rem;margin:4px 0 8px}.goal{font-weight:600}
+.sm{display:block;font-size:.82rem;color:var(--mut)}
+@media(max-width:520px){main{padding:10px}.cell{width:30px;height:30px}}
+</style></head><body><main>
+<h1>AI Engineer Study Tracker</h1>
+<p class="mut">34 plan-weeks · 8 tick boxes each, topics first so labs and projects build on them (Mon–Fri topics, Sat lab, Sun project + mock interview, 1 goal) · target: AI Engineer (pipelines, agents), not AI/ML research.</p>
+<div class="card"><b id="pct">0%</b> overall <span class="mut" id="cnt"></span><div class="bar" role="progressbar" aria-label="Overall progress"><i id="ob"></i></div>
+<div id="strip" aria-label="Week strip"></div>
+<p style="margin:.8em 0 0"><label style="display:inline-flex;align-items:center;gap:8px">Start date <input type="date" id="sd"></label></p><p id="pace" class="mut" style="margin:.4em 0 0"></p></div>
+<div class="card"><b>Hours math (my estimate)</b><br>Plan week = 5×2h + 6h Sat + 6h Sun = <b>22h</b>. 34 weeks × 22h = <b>748h</b>.<br>Available per calendar week: Mon–Fri 10h + Sun 6h + Saturdays. Only 2nd and 4th Saturdays are free (2 of ~4.33 per month ≈ 0.46 per week) → 0.46 × 6h ≈ 2.8h. Total ≈ <b>18.8h/week</b> (assumes 0h on working Saturdays).<br>748h ÷ 18.8h ≈ <b>39.8 → about 40 calendar weeks (~9 months)</b>. Pace line below uses 18.8/22 = 0.85 plan-weeks per calendar week.</div>
+<div id="root"></div>
+<div class="card"><button id="rs">Reset all progress</button> <span id="rc" hidden><b>Erase everything?</b> <button id="ry">Yes, erase</button> <button id="rn">Cancel</button></span> <span class="mut" id="sv"></span></div>
+<div class="card" id="notes"><h2>Notes</h2><ul>
+<li><b>Where progress is saved:</b> only in this browser on this device (localStorage). Another browser, device, private window, or clearing site data = a fresh tracker. Sharing the link shares the plan, not your ticks.</li>
+<li><b>Hours:</b> see the math above. Working-Saturday handling is my assumption: the Saturday lab simply takes longer on those weeks, so one plan-week ≈ 1.17 calendar weeks.</li>
+<li><b>My own synthesis, not official standards:</b> week counts, topic order, daily topics, time estimates, goals, and mock-interview prompts.</li>
+<li><b>Resource tags:</b> <span class="tag">checked</span> = found in a web search in this chat. <span class="tag">not re-verified</span> = from background knowledge or a page I did not open. Catalogues change, so check availability before you start.</li>
+<li><b>Prices:</b> I cannot confirm any current price. Coursera certificate/subscription prices and free-tier cloud terms are unconfirmed; a third-party review mentioned about $49 for a certificate, which I could not verify. Auditing may be free, but I cannot confirm that today.</li>
+<li><b>Fast-moving tools:</b> LangChain, LangGraph, MCP and vector-database APIs change quickly. Expect to adjust code, and follow each tool's current docs over this list.</li>
+<li><b>Employers:</b> I did not verify what Cognizant, Infosys or Capgemini require. Week 32 has you read real current job listings and tune the plan.</li>
+<li><b>Left out on purpose:</b> deep math proofs, advanced classical ML, reinforcement learning, computer vision beyond a CNN intro, research-paper work.</li></ul></div>
+</main>
+<script>
+var N=["Mon","Tue","Wed","Thu","Fri","Sat · Lab","Sun · Project","Goal"];
+var K="Mock interview";
+var P=[
+{n:"1 · Python & programming",h:215,d:"You can write a 150-line Python CLI with tests, push it to GitHub, call a REST API and a SQL database, and make one LLM API call.",m:"5 Python/SQL questions + 1 easy coding problem, answered aloud, 30 min.",r:[["Kaggle Learn: Python, Pandas, SQL","https://www.kaggle.com/learn","not re-verified"],["Anthropic Academy","https://anthropic.com/learn","checked"]],w:[
+"Setup, variables, types|If/else, loops|Functions, scope|Lists, dicts, sets|Strings, file I/O|20 small drills|CLI expense tracker v1|Write a word-count script from scratch, no copy-paste",
+"Classes, objects|Modules, venv|Exceptions|Comprehensions, generators|Type hints, dataclasses|Refactor v1 into a package|Tracker v2 with JSON storage|Explain OOP vs functions in 2 min",
+"Git: commit, branch|GitHub: PRs, issues|pytest basics|Debugging, logging|Code style, linting|Add tests to tracker|Publish repo with README|Open and merge a PR on your own repo",
+"HTTP, REST basics|requests, JSON|API keys, .env|Rate limits, retries|async/await basics|Build a public-API client|CLI that fetches and caches data|API call with retries and error handling",
+"SQL: SELECT, WHERE|JOIN, GROUP BY|INSERT, UPDATE, DELETE|Schema design, indexes|Python + sqlite3|25 SQL queries|Store API data in SQLite|Write a 3-table join from scratch",
+"Big-O, arrays, hashmaps|Sorting, searching|Stacks, queues, recursion|Two pointers, windows|Interview drills (easy)|10 timed easy problems|First LLM API call: summarizer CLI|Working LLM call, key kept in .env"]},
+{n:"2–3 · Math & data skills (lean)",h:160,d:"You can explain vectors, derivatives, gradient descent and probability in plain words, and clean and plot a real dataset with NumPy, Pandas and Matplotlib.",m:"Explain cosine similarity, gradient descent, mean vs median; one live Pandas task.",r:[["Google ML Crash Course (gradient descent)","https://developers.google.com/machine-learning/crash-course","checked"],["Karpathy Zero to Hero (lecture 1)","https://karpathy.ai/zero-to-hero.html","checked"]],w:[
+"Vectors, matrices intuition|Dot product, cosine similarity|NumPy arrays|Broadcasting|Matrix multiply in NumPy|Cosine similarity from scratch|Nearest-neighbour search in NumPy|Compute cosine similarity by hand and in code",
+"Derivatives, slope|Chain rule|Gradients, partial derivatives|Gradient descent by hand|Learning rate, convergence|Gradient descent for a line fit|Linear regression in pure NumPy|Explain gradient descent in 2 min",
+"Probability basics|Mean, variance, distributions|Pandas: load, clean|Pandas: groupby, merge|Matplotlib, Seaborn|EDA on a public dataset|EDA notebook with findings|Clean and chart a messy CSV unaided"]},
+{n:"4 · Classical ML (essentials only)",h:40,d:"You can train, evaluate and compare a scikit-learn model and explain overfitting, precision and recall.",m:"Overfitting, precision vs recall, train/test split, when trees beat linear models.",r:[["Google ML Crash Course","https://developers.google.com/machine-learning/crash-course","checked"],["Coursera ML Specialization (paid, optional; price: I cannot confirm)","https://www.coursera.org/specializations/machine-learning-introduction","checked"]],w:[
+"ML workflow, train/test split|Linear, logistic regression|Overfitting, cross-validation|Precision, recall, F1|Trees, random forest|Classify a tabular dataset|sklearn Pipeline project|Pick a metric and justify it",
+"Gradient boosting basics|Hyperparameter tuning|K-means clustering|Feature engineering basics|Save models with joblib|Tune and compare 3 models|Model + short comparison report|Explain bias vs variance with an example"]},
+{n:"5 · Deep learning (PyTorch)",h:280,d:"You can train a small PyTorch model, explain backpropagation, and use embeddings for similarity search.",m:"Backprop, Adam vs SGD, dropout, what is an embedding.",r:[["Karpathy: Neural Networks, Zero to Hero","https://karpathy.ai/zero-to-hero.html","checked"],["Google ML Crash Course (neural nets, embeddings)","https://developers.google.com/machine-learning/crash-course","checked"]],w:[
+"Neurons, layers, activations|Loss functions|Backprop intuition|PyTorch tensors|Autograd|Karpathy micrograd lecture|MLP on a small dataset|Derive backprop for a 2-layer net on paper",
+"PyTorch training loop|Optimizers: SGD, Adam|Dropout, regularisation|Normalisation layers|Colab GPU basics|Training loop with logging|Small image classifier|Train and evaluate with a clean loop",
+"CNN basics|Transfer learning|Embeddings concept|Word embeddings, similarity|Sentence embeddings via a library|Embed and search 100 docs|Semantic-search mini app|Build semantic search unaided"]},
+{n:"6 · NLP, transformers & LLM internals",h:330,d:"You can explain tokenization, attention and the transformer, and fine-tune a small model with LoRA.",m:"How attention works, tokenization, LoRA vs full fine-tune, context windows.",r:[["Hugging Face LLM Course","https://huggingface.co/learn/llm-course/chapter1/1","checked"],["Karpathy Zero to Hero (GPT, tokenizer)","https://karpathy.ai/zero-to-hero.html","checked"]],w:[
+"Tokenization, BPE|Token costs, context window|Why attention beat RNNs|Self-attention step by step|Multi-head, positions|Karpathy makemore lecture|Tokenizer playground|Explain attention on a whiteboard",
+"Transformer block|Decoder-only GPT idea|Pretraining vs fine-tuning|Sampling: temperature, top-p|HF Transformers pipelines|Run an open model in Colab|Text classifier with an HF model|Explain temperature and top-p",
+"Instruction tuning, RLHF idea|LoRA|PEFT library basics|Quantisation basics|Open vs closed models|LoRA fine-tune a small model|Fine-tune on a small dataset|Finish a LoRA run and compare outputs"]},
+{n:"7A · Generative AI foundations",h:15,d:"You can build an app on an LLM API with solid prompts, streaming and schema-validated structured output.",m:"System vs user prompts, structured outputs, hallucination, token cost.",r:[["Anthropic Academy (API courses)","https://anthropic.skilljar.com/","checked"],["Hugging Face Learn","https://huggingface.co/learn","checked"]],w:[
+"Chat APIs, roles, messages|Clear prompting|Few-shot, reasoning prompts|Streaming responses|Tokens, cost, latency|Prompt A/B test harness|CLI chatbot with memory|Chatbot with system prompt and history",
+"Structured output, JSON schema|Pydantic validation|Tool/function calling basics|PDFs and images as input|Retries, fallbacks|Extract fields from text docs|Document extractor API|Extractor passes schema on 20 test docs"]},
+{n:"7B · RAG",h:190,d:"You can build a RAG app over your own documents with citations and measure retrieval quality.",m:"Design a RAG system for company policies: chunking, reranking, evaluation.",r:[["DataTalks.Club LLM Zoomcamp","https://datatalks.club/docs/courses/llm-zoomcamp/","checked"],["LLM Zoomcamp repo","https://github.com/DataTalksClub/llm-zoomcamp","checked"]],w:[
+"RAG architecture|Chunking strategies|Embedding models|Vector databases|Indexing pipeline|Ingest 20 PDFs|Basic RAG Q&A|Answer questions from your own docs",
+"Top-k, similarity|Hybrid search, BM25|Reranking|Metadata filters|Citations, source links|Compare chunk sizes|RAG with citations|Every answer cites a source chunk",
+"recall@k, MRR|Build a test question set|Query rewriting|Handling no-answer|Incremental re-indexing|Measure recall@k on 30 questions|RAG v2 with eval report|Show recall@k before and after one change"]},
+{n:"7C · Agentic AI",h:100,d:"You can build a tool-using agent in LangGraph with an MCP server, a human approval step and a multi-agent flow.",m:"Agent vs workflow, design a ticket-triage agent, failure handling.",r:[["Hugging Face Agents and MCP courses (listed on Learn page)","https://huggingface.co/learn","checked"],["Anthropic Academy (MCP courses)","https://anthropic.com/learn","checked"]],w:[
+"Tool use, function calling|The agent loop|ReAct pattern|Planning, stop conditions|Tool design, schemas|Agent loop in plain Python|Research agent with 3 tools|Agent finishes a task with 3 tools, no framework",
+"LangGraph state, nodes, edges|Conditional routing|Memory, checkpoints|Tool nodes|Streaming, errors|Port week-23 agent to LangGraph|Support-triage agent|LangGraph agent runs with checkpoints",
+"MCP concepts|Build an MCP server|Use an MCP client|Tool permissions, least privilege|Debugging tool calls|MCP server over your SQLite|Agent using your MCP server|Agent calls your MCP tool end to end",
+"Human-in-the-loop approvals|Multi-agent patterns|Supervisor, handoffs|Cost and loop limits|When not to use agents|Approval gate before writes|Multi-agent report writer|Demo with approval step and loop limit"]},
+{n:"7D · Evaluation, observability & safety",h:60,d:"You can run evals on your RAG or agent, trace runs, and defend against basic prompt injection.",m:"How to test an LLM app, LLM-as-judge pitfalls, prompt-injection defence.",r:[["LLM Zoomcamp (evaluation, monitoring modules)","https://datatalks.club/docs/courses/llm-zoomcamp/","checked"]],w:[
+"Eval sets, golden answers|Metrics for LLM apps|LLM-as-judge and its limits|Prompt regression tests|Human review loop|Eval harness for your RAG|Eval script you can rerun|Score the app on 30 cases and track changes",
+"Tracing, logs, cost tracking|Prompt injection types|Guardrails, input/output checks|PII and data privacy|Red-teaming basics|Attack your own agent|Add tracing + guardrails|Block 5 injection attempts you wrote"]},
+{n:"8 · Shipping & MLOps",h:250,d:"You can deploy a containerised FastAPI LLM service with CI, logs and monitoring on a cloud.",m:"Deploy an LLM app: Docker, latency and cost, monitoring.",r:[["FastAPI, Docker, GitHub Actions docs (search official docs)","","not re-verified"]],w:[
+"FastAPI basics|Pydantic validation|Async, streaming endpoints|Auth, rate limiting|API docs, testing|Wrap RAG in FastAPI|RAG API v1|Working /ask endpoint with streaming",
+"Docker basics|Dockerfile for Python|docker compose, DB|Env vars, secrets|GitHub Actions CI|Containerise the API|CI builds and tests the image|docker compose up runs the full stack",
+"Cloud basics: compute, storage|Deploy a container|Logs, metrics, alerts|Cost control, caching|Queues, scaling basics|Deploy to a cloud free tier (terms: I cannot confirm)|Live demo URL|Public URL answers real queries"]},
+{n:"9 · Portfolio & job prep",h:0,d:"You have 3 polished projects, a tuned resume and LinkedIn, and have finished a mock interview every week.",m:"Full 45-min loop: coding + LLM concepts + system design + behavioural.",r:[],w:[
+"Choose your 3 best projects|README, diagrams, demo video|Resume for AI Engineer roles|LinkedIn, GitHub profile|Read 5 real job listings from Cognizant, Infosys, Capgemini|Polish project 1|Polish project 2|3 repos with README and demo",
+"System design: RAG|System design: agent|Python/SQL drills|LLM concepts rapid review|Behavioural stories (STAR)|2-round mock loop|Polish project 3|Answer 20 LLM questions aloud",
+"Tailor resume per role|Referrals, networking|Take-home practice|Pay-range research|Weak-spot review|2 full mock interviews|Final portfolio page|Send 10 tailored applications"]}];
+var D0="2026-10-03",S={t:{},s:D0},wn,ws,h,st,cb;
+try{var x=JSON.parse(localStorage.getItem("aie-tracker")||"null");if(x){S=x;if(!S.s)S.s=D0}}catch(e){}
+function build(){wn=0;ws=[];h="";st="";var ord=[0,1,2,3,4,5,6,7];
+P.forEach(function(p,pi){var f=wn+1;h+='<details class="ph" id="p'+pi+'" open><summary>'+p.n+' <span class="mut" id="pc'+pi+'"></span></summary><div class="pb"><p class="done"><b>You are done when:</b> '+p.d+'</p>';
+p.w.forEach(function(w){wn++;var a=w.split("|");ws.push(pi);h+='<details class="wk" id="w'+wn+'"><summary>Week '+wn+' <span class="mut" id="wc'+wn+'"></span> <span class="mut" id="wd'+wn+'"></span></summary><ul>';
+ord.forEach(function(i){var t=a[i];var id=wn+"-"+i;h+='<li><label><input type="checkbox" data-k="'+id+'"><span'+(i==7?' class="goal"':'')+'>'+N[i]+': '+t+(i==6?'<span class="sm">+ '+K+': '+p.m+'</span>':'')+'</span></label></li>'});
+h+='</ul></details>';st+='<button class="cell" data-w="'+wn+'" style="--h:'+p.h+'" title="Week '+wn+'" aria-label="Go to week '+wn+'">'+wn+'</button>'});
+if(p.r.length){h+='<p class="mut"><b>Resources:</b> '+p.r.map(function(r){return (r[1]?'<a href="'+r[1]+'" target="_blank" rel="noopener">'+r[0]+'</a>':r[0])+'<span class="tag">'+r[2]+'</span>'}).join(' · ')+'</p>'}
+h+='</div></details>'});
+document.getElementById("root").innerHTML=h;document.getElementById("strip").innerHTML=st;cb=[].slice.call(document.querySelectorAll("input[data-k]"))}
+build();
+if(!(S.t))S.t={};
+function save(){try{localStorage.setItem("aie-tracker",JSON.stringify(S));sv.textContent="Saved in this browser only."}catch(e){sv.textContent="Could not save here (storage blocked). Progress lasts only until you close the page."}}
+var sv=document.getElementById("sv");
+function upd(){var tot=0,pd={},pt={};cb.forEach(function(c){var k=c.dataset.k,w=+k.split("-")[0],p=ws[w-1];c.checked=!!S.t[k];pt[p]=(pt[p]||0)+1;if(c.checked){tot++;pd[p]=(pd[p]||0)+1}});
+for(var w=1;w<=wn;w++){var d=0;for(var i=0;i<8;i++)if(S.t[w+"-"+i])d++;document.getElementById("wc"+w).textContent="· "+d+"/8";
+var b=document.querySelector('.cell[data-w="'+w+'"]');b.style.background="linear-gradient(to top,hsl("+P[ws[w-1]].h+" 60% var(--l)) "+(d/8*100)+"%,transparent "+(d/8*100)+"%)"}
+var b0=S.s?new Date(S.s+"T00:00:00"):null;for(var w=1;w<=wn;w++){var e=document.getElementById("wd"+w),dt=b0&&new Date(b0.getTime()+Math.round((w-1)*7*22/18.8)*864e5);e.textContent=dt?"· target from ~"+dt.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"}):""}
+P.forEach(function(p,i){document.getElementById("pc"+i).textContent="· "+(pd[i]||0)+"/"+pt[i]});
+var pc=Math.round(tot/cb.length*100);document.getElementById("pct").textContent=pc+"%";document.getElementById("cnt").textContent="("+tot+"/"+cb.length+" tasks)";document.getElementById("ob").style.width=pc+"%";
+var pe=document.getElementById("pace"),sd=document.getElementById("sd");sd.value=S.s||"";
+if(!S.s){pe.textContent="Set a start date to see if you are ahead or behind."}else{var dd=(Date.now()-new Date(S.s+"T00:00:00").getTime())/864e5;if(dd<0)pe.textContent="Starts in "+Math.ceil(-dd)+" day(s).";else{var ex=dd/7*(18.8/22),ac=tot/8,df=ac-ex;pe.textContent=Math.abs(df)<0.25?"On track (about "+ac.toFixed(1)+" plan-weeks done, "+ex.toFixed(1)+" expected).":(df>0?"Ahead by ":"Behind by ")+Math.abs(df).toFixed(1)+" plan-weeks ("+ac.toFixed(1)+" done, "+ex.toFixed(1)+" expected)."}}}
+document.addEventListener("change",function(e){var k=e.target.dataset&&e.target.dataset.k;if(k){if(e.target.checked)S.t[k]=1;else delete S.t[k];save();upd()}});
+document.getElementById("sd").addEventListener("change",function(e){S.s=e.target.value;save();build();upd()});
+document.getElementById("strip").addEventListener("click",function(e){var b=e.target.closest(".cell");if(!b)return;var w=+b.dataset.w;document.getElementById("p"+ws[w-1]).open=true;var el=document.getElementById("w"+w);el.open=true;el.scrollIntoView({behavior:"smooth",block:"start"});el.querySelector("summary").focus()});
+var rs=document.getElementById("rs"),rc=document.getElementById("rc");
+rs.onclick=function(){rc.hidden=false;rs.hidden=true;document.getElementById("rn").focus()};
+document.getElementById("rn").onclick=function(){rc.hidden=true;rs.hidden=false;rs.focus()};
+document.getElementById("ry").onclick=function(){S={t:{},s:D0};save();build();upd();rc.hidden=true;rs.hidden=false;rs.focus()};
+upd();
+</script></body></html>
